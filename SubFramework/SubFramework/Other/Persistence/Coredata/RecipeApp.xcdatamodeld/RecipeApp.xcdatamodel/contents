@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17183" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="ManagedAuthor" representedClassName="ManagedAuthor" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="recipesSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedRecipe" inverseName="authorValues" inverseEntity="ManagedRecipe"/>
+    </entity>
+    <entity name="ManagedDay" representedClassName="ManagedDay" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="recipeValues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedRecipe" inverseName="days" inverseEntity="ManagedRecipe"/>
+    </entity>
+    <entity name="ManagedImage" representedClassName="ManagedImage" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Binary"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="kind" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="URI"/>
+        <relationship name="instruction" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedInstruction" inverseName="imageValues" inverseEntity="ManagedInstruction"/>
+        <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedRecipe" inverseName="imageValues" inverseEntity="ManagedRecipe"/>
+    </entity>
+    <entity name="ManagedIngredient" representedClassName="ManagedIngredient" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="value" optional="YES" attributeType="String"/>
+        <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedRecipe" inverseName="ingredientValues" inverseEntity="ManagedRecipe"/>
+    </entity>
+    <entity name="ManagedInstruction" representedClassName="ManagedInstruction" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="orderedData" optional="YES" attributeType="Binary"/>
+        <attribute name="text" optional="YES" attributeType="String"/>
+        <relationship name="imageValues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedImage" inverseName="instruction" inverseEntity="ManagedImage"/>
+        <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedRecipe" inverseName="instructionValues" inverseEntity="ManagedRecipe"/>
+        <relationship name="videoValues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedVideo" inverseName="instruction" inverseEntity="ManagedVideo"/>
+    </entity>
+    <entity name="ManagedKeyword" representedClassName="ManagedKeyword" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="value" optional="YES" attributeType="String"/>
+        <relationship name="recipes" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedRecipe" inverseName="keywordValues" inverseEntity="ManagedRecipe"/>
+    </entity>
+    <entity name="ManagedLibrary" representedClassName="ManagedLibrary" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="recipeDescription" optional="YES" attributeType="String"/>
+        <relationship name="recipes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedRecipe" inverseName="library" inverseEntity="ManagedRecipe"/>
+    </entity>
+    <entity name="ManagedRecipe" representedClassName="ManagedRecipe" syncable="YES">
+        <attribute name="cookTime" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="orderedData" optional="YES" attributeType="Binary"/>
+        <attribute name="prepTime" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="recipeDescription" optional="YES" attributeType="String"/>
+        <attribute name="totalTime" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="url" optional="YES" attributeType="URI"/>
+        <relationship name="authorValues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedAuthor" inverseName="recipesSet" inverseEntity="ManagedAuthor"/>
+        <relationship name="days" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedDay" inverseName="recipeValues" inverseEntity="ManagedDay"/>
+        <relationship name="imageValues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedImage" inverseName="recipe" inverseEntity="ManagedImage"/>
+        <relationship name="ingredientValues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedIngredient" inverseName="recipe" inverseEntity="ManagedIngredient"/>
+        <relationship name="instructionValues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedInstruction" inverseName="recipe" inverseEntity="ManagedInstruction"/>
+        <relationship name="keywordValues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedKeyword" inverseName="recipes" inverseEntity="ManagedKeyword"/>
+        <relationship name="library" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedLibrary" inverseName="recipes" inverseEntity="ManagedLibrary"/>
+        <relationship name="videoValues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedVideo" inverseName="recipe" inverseEntity="ManagedVideo"/>
+    </entity>
+    <entity name="ManagedVideo" representedClassName="ManagedVideo" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Binary"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
+        <attribute name="thumbnail" optional="YES" attributeType="Binary"/>
+        <attribute name="url" optional="YES" attributeType="URI"/>
+        <relationship name="instruction" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedInstruction" inverseName="videoValues" inverseEntity="ManagedInstruction"/>
+        <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedRecipe" inverseName="videoValues" inverseEntity="ManagedRecipe"/>
+    </entity>
+    <elements>
+        <element name="ManagedAuthor" positionX="-91.15625" positionY="69.86328125" width="128" height="88"/>
+        <element name="ManagedDay" positionX="-738" positionY="-450" width="128" height="88"/>
+        <element name="ManagedImage" positionX="-242.33203125" positionY="378.94140625" width="128" height="133"/>
+        <element name="ManagedIngredient" positionX="145.890625" positionY="-12.71484375" width="128" height="88"/>
+        <element name="ManagedInstruction" positionX="-269.42578125" positionY="-606.33984375" width="128" height="133"/>
+        <element name="ManagedKeyword" positionX="160" positionY="192" width="128" height="88"/>
+        <element name="ManagedLibrary" positionX="-943.15625" positionY="176.40625" width="128" height="88"/>
+        <element name="ManagedRecipe" positionX="-720.9609375" positionY="-288.47265625" width="128" height="283"/>
+        <element name="ManagedVideo" positionX="160" positionY="192" width="128" height="148"/>
+    </elements>
+</model>
